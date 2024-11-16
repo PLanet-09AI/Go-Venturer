@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/compass.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GeoVenturer - Explore Your World</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBOjE3Wk5LX1LhTfOVJVAMkfdYbrM-eFG8&libraries=places"></script>
+  </head>
+  <body class="bg-gray-100">
+    <div id="app" class="min-h-screen flex flex-col">
+      <!-- Auth Modal -->
+      <div id="authModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white p-8 rounded-lg shadow-xl max-w-md w-full">
+          <h2 id="authTitle" class="text-2xl font-bold mb-6 text-center">Sign In</h2>
+          <form id="authForm" class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700">Email</label>
+              <input type="email" id="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700">Password</label>
+              <input type="password" id="password" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
+            </div>
+            <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors">
+              Sign In
+            </button>
+          </form>
+          <p class="mt-4 text-center text-sm text-gray-600">
+            <a href="#" id="authToggle" class="text-blue-600 hover:text-blue-800">Create an account</a>
+          </p>
+        </div>
+      </div>
+
+      <!-- Header -->
+      <header class="bg-white shadow-md">
+        <nav class="container mx-auto px-4 py-3 flex items-center justify-between">
+          <div class="flex items-center space-x-2">
+            <img src="/compass.svg" alt="GeoVenturer Logo" class="w-8 h-8">
+            <h1 class="text-xl font-bold text-gray-900">GeoVenturer</h1>
+          </div>
+          <div class="flex items-center space-x-4">
+            <select id="travelMode" class="px-3 py-2 border border-gray-300 rounded-md text-sm">
+              <option value="DRIVING">🚗 Driving</option>
+              <option value="WALKING">🚶 Walking</option>
+              <option value="BICYCLING">🚲 Cycling</option>
+              <option value="TRANSIT">🚌 Transit</option>
+            </select>
+            <button id="journeyMode" class="hidden px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors">
+              Start Journey
+            </button>
+            <button id="authButton" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
+              Sign In
+            </button>
+            <div id="userInfo" class="hidden">
+              <span id="userPoints" class="mr-2 font-semibold">0 points</span>
+              <button id="signOut" class="text-red-600 hover:text-red-800">Sign Out</button>
+            </div>
+          </div>
+        </nav>
+      </header>
+
+      <!-- Main Content -->
+      <main class="flex-1 container mx-auto p-4 flex gap-4">
+        <!-- Map Container -->
+        <div class="flex-1 space-y-4">
+          <div id="map" class="h-[calc(100vh-8rem)] rounded-lg shadow-lg"></div>
+          <div id="route-info"></div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="w-96 space-y-4">
+          <!-- Directions Panel -->
+          <div id="directions-panel" class="bg-white p-4 rounded-lg shadow-md max-h-[50vh] overflow-y-auto"></div>
+
+          <!-- Recommendations Panel -->
+          <div class="bg-white p-4 rounded-lg shadow-md">
+            <div class="flex justify-between items-center mb-4">
+              <h2 class="text-lg font-semibold">AI Recommendations</h2>
+              <div class="text-sm text-gray-500">Hover over recommendations to play</div>
+            </div>
+            <div id="recommendations" class="space-y-3">
+              <p class="text-gray-600">Sign in to get personalized recommendations!</p>
+            </div>
+          </div>
+
+          <!-- Leaderboard -->
+          <div class="bg-white p-4 rounded-lg shadow-md">
+            <h2 class="text-lg font-semibold mb-4">Top Explorers</h2>
+            <div id="leaderboard" class="space-y-2">
+              <!-- Leaderboard entries will be inserted here -->
+            </div>
+          </div>
+        </aside>
+      </main>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
